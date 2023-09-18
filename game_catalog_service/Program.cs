@@ -2,9 +2,6 @@ using Game.Catalog.Service.Entities;
 using Game.Common.MongoDB;
 using Game.Common.Settings;
 using Game.Common.MassTransit;
-using MassTransit;
-using System.Reflection;
-using System.Security.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 var serviceSettings = builder.Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();

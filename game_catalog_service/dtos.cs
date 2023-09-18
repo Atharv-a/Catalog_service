@@ -1,4 +1,4 @@
-using System;
+
 using System.ComponentModel.DataAnnotations;
 
 namespace Games.Catalog.Service.Dtos

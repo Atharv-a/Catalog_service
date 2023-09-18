@@ -1,7 +1,5 @@
 using MassTransit;
 using Game.Common.Settings;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System.Security.Authentication;
 
@@ -25,13 +23,14 @@ namespace Game.Common.MassTransit
                 {  
                     var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
                     //get instance of RabbitMq settings
-                    var rabbitMQSettings = configuration.GetSection(nameof(RabbitMQSettings)).Get<RabbitMQSettings>();
+                    var RabbitMqHost = Environment.GetEnvironmentVariable("RabbitMqHost");
+                    var RabbitMqVHost = Environment.GetEnvironmentVariable("RabbitMqVHost");
+                    var RabbitMqPass = Environment.GetEnvironmentVariable("RabbitMqPass");
 
-
-                    configurator.Host(rabbitMQSettings.Host, 5671,rabbitMQSettings.VHost, h =>
+                    configurator.Host(RabbitMqHost, 5671,RabbitMqVHost, h =>
                     {
-                        h.Username(rabbitMQSettings.VHost);
-                        h.Password(rabbitMQSettings.Password);
+                        h.Username(RabbitMqVHost);
+                        h.Password(RabbitMqPass);
 
                         h.UseSsl(s =>
                         {

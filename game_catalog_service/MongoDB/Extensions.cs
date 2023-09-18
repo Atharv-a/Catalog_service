@@ -2,8 +2,6 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;   
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Game.Common.Settings;
 
 namespace Game.Common.MongoDB
@@ -29,8 +27,9 @@ namespace Game.Common.MongoDB
             {   
                 // gets value attributes from appsettings.json and set them in serviceSettings and mongoDbSettings
                 var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
-                var mongoDbSettings = configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
-                var mongoClient = new MongoClient(mongoDbSettings.ConnectionString);
+                var mongoConnectionString =Environment.GetEnvironmentVariable("Mongo_connection_string");
+
+                var mongoClient = new MongoClient(mongoConnectionString);
                 return mongoClient.GetDatabase(serviceSettings.ServiceName);
             });
             

@@ -1,4 +1,3 @@
-using System;
 using Game.Common;
 
 namespace Game.Catalog.Service.Entities
